@@ -44,8 +44,8 @@ python3 flow-cli.py [--api-key YOUR_API_KEY] teams [options]
 
 #### Options
 
---parent-isnull: Filter results to only return top level teams
---parent: Filter results to only subteams of the specified Team ID
+* --parent-isnull: Filter results to only return top level teams
+* --parent: Filter results to only subteams of the specified Team ID
 
 ### Pull Request Metrics API
 
@@ -55,9 +55,9 @@ python3 flow-cli.py [--api-key YOUR_API_KEY] prs [options]
 
 #### Options
 
---team-id: Filter results to those for a single team
---date-range: Filter results by date range; format is "[yyyy-mm-dd:yyyy-mm-dd]"
---include-nested-teams: Include nested teams when calculating results; true or false
+* --team-id: Filter results to those for a single team
+* --date-range: Filter results by date range; format is "[yyyy-mm-dd:yyyy-mm-dd]"
+* --include-nested-teams: Include nested teams when calculating results; true or false
 
 ### Code Fundamentals API
 
@@ -67,11 +67,11 @@ python3 flow-cli.py [--api-key YOUR_API_KEY] code [options]
 
 #### Options
 
---team-id: Filter results to those for a single team; defaults to account level
---start-date: Only include data from this date; format is `yyyy-mm-dd`
---end-date: Only include data to this date; format is `yyyy-mm-dd`
---include-nested-teams: Include nested teams when calculating results; `true` or `false`; default `true`
---resolution: Defaults to `period` set by date range, can also be set to `week`
+* --team-id: Filter results to those for a single team; defaults to account level
+* --start-date: Only include data from this date; format is `yyyy-mm-dd`
+* --end-date: Only include data to this date; format is `yyyy-mm-dd`
+* --include-nested-teams: Include nested teams when calculating results; `true` or `false`; default `true`
+* --resolution: Defaults to `period` set by date range, can also be set to `week`
 
 
 ## License
