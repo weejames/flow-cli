@@ -32,6 +32,7 @@ A command-line interface to interact with the Pluralsight Flow APIs. Not all API
 To run the application, use the following command:
 ```bash
 python3 flow-cli.py [--api-key YOUR_API_KEY] <command> [options]
+```
 
 ## Supported Commands / APIs
 
@@ -39,6 +40,7 @@ python3 flow-cli.py [--api-key YOUR_API_KEY] <command> [options]
 
 ```bash
 python3 flow-cli.py [--api-key YOUR_API_KEY] teams [options]
+```
 
 #### Options
 
@@ -49,6 +51,7 @@ python3 flow-cli.py [--api-key YOUR_API_KEY] teams [options]
 
 ```bash
 python3 flow-cli.py [--api-key YOUR_API_KEY] prs [options]
+```
 
 #### Options
 
@@ -60,6 +63,7 @@ python3 flow-cli.py [--api-key YOUR_API_KEY] prs [options]
 
 ```bash
 python3 flow-cli.py [--api-key YOUR_API_KEY] code [options]
+```
 
 #### Options
 
