@@ -7,11 +7,14 @@ def request(api_key, team_id, date_range, include_nested_teams):
         "Authorization": f"Bearer {api_key}"
     }
 
-    query_params = {
-        "team_id": team_id,
-        "date_range": date_range,
-        "include_nested_teams": include_nested_teams
-    }
+    query_params = {}
+
+    if team_id is not None:
+        query_params["team_id"] = team_id
+    if date_range is not None:
+        query_params["date_range"] = date_range
+    if include_nested_teams is not None:
+        query_params["include_nested_teams"] = include_nested_teams
 
     api_response = requests.get(
         api_endpoint,
