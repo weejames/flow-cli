@@ -24,13 +24,22 @@ def main():
     parser_collaboration_pullrequest_metrics.add_argument('--include-nested-teams', type = str, default = "true", help = "Include nested teams in response.")
 
     # Subcommand for customer_metrics_code_fundamentals API & filters
-    parser_collaboration_pullrequest_metrics = subparsers.add_parser('code', help='Interact with Code Fundamentals API')
-    parser_collaboration_pullrequest_metrics.add_argument('--start-date', type = str, help = "Filter response by date range")
-    parser_collaboration_pullrequest_metrics.add_argument('--end-date', type = str, help = "Filter response by date range")
-    parser_collaboration_pullrequest_metrics.add_argument('--team-id', type = str, help = "Fetch metrics for this Team ID")
-    parser_collaboration_pullrequest_metrics.add_argument('--include-nested-teams', type = str, default = "true", help = "Include nested teams in response.")
-    parser_collaboration_pullrequest_metrics.add_argument('--resolution', type = str, default = "period", help = "Period.")
-
+    parser_collaboration_code_metrics = subparsers.add_parser('code', help='Interact with Code Fundamentals API')
+    parser_collaboration_code_metrics.add_argument('--start-date', type = str, help = "Filter response by date range")
+    parser_collaboration_code_metrics.add_argument('--end-date', type = str, help = "Filter response by date range")
+    parser_collaboration_code_metrics.add_argument('--team-id', type = str, help = "Fetch metrics for this Team ID")
+    parser_collaboration_code_metrics.add_argument('--team-id--in', type = str, help = "Fetch metrics for this Team ID")
+    parser_collaboration_code_metrics.add_argument('--include-nested-teams', type = str, default = "true", help = "Include nested teams in response.")
+    parser_collaboration_code_metrics.add_argument('--resolution', type = str, default = "period", help = "Period.")
+    parser_collaboration_code_metrics.add_argument('--apex-user-id', type=str, help="Filter response by apex_user_id")
+    parser_collaboration_code_metrics.add_argument('--apex-user-id--in', type=str, help="Filter response by apex_user_id__in")
+    parser_collaboration_code_metrics.add_argument('--repo-id', type=str, help="Filter response by repo_id")
+    parser_collaboration_code_metrics.add_argument('--repo-id--in', type=str, help="Filter response by repo_id__in")
+    parser_collaboration_code_metrics.add_argument('--repo-id-not--in', type=str, help="Filter response by repo_id_not__in")
+    parser_collaboration_code_metrics.add_argument('--repo-tag-id', type=str, help="Filter response by repo_tag_id")
+    parser_collaboration_code_metrics.add_argument('--repo-tag-id--in', type=str, help="Filter response by repo_tag_id__in")
+    parser_collaboration_code_metrics.add_argument('--repo-name', type=str, help="Filter response by repo_name")
+   
     # Subcommand for DORA API & filters
     parser_dora = subparsers.add_parser('dora', help='Interact with DORA API')
 
@@ -70,8 +79,17 @@ def main():
                 start_date = args.start_date,
                 end_date = args.end_date,
                 team_id = args.team_id,
+                team_id__in = args.team_id__in,
                 include_nested_teams = args.include_nested_teams,
-                resolution = args.resolution
+                resolution = args.resolution,
+                apex_user_id = args.apex_user_id,
+                apex_user_id__in = args.apex_user_id__in,
+                repo_id = args.repo_id,
+                repo_id__in = args.repo_id__in,
+                repo_id_not__in = args.repo_id_not__in,
+                repo_tag_id = args.repo_tag_id,
+                repo_tag_id__in = args.repo_tag_id__in,
+                repo_name = args.repo_name
             )
 
             print(json.dumps(code_metrics, indent = 4))
