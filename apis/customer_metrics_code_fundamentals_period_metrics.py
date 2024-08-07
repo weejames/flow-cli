@@ -45,4 +45,4 @@ def request(api_key, team_id, team_id__in, start_date, end_date, include_nested_
     if (api_response.status_code == 200):
         return api_response.json()
     else:
-        raise RuntimeError("Request failed")
+        raise RuntimeError("Request failed")        raise RuntimeError(api_response.text)
