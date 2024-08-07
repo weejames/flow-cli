@@ -26,6 +26,7 @@ def main():
     # Subcommand for customer_metrics_code_fundamentals API & filters
     parser_collaboration_code_metrics = subparsers.add_parser('code', help='Interact with Code Fundamentals API')
     parser_collaboration_code_metrics.add_argument('--start-date', type = str, help = "Filter response by date range")
+    parser_collaboration_code_metrics.add_argument('--start-date', type = str, help = "Filter response by date range - pattern YYYY-MM-DD", required="true")
     parser_collaboration_code_metrics.add_argument('--end-date', type = str, help = "Filter response by date range")
     parser_collaboration_code_metrics.add_argument('--team-id', type = str, help = "Fetch metrics for this Team ID")
     parser_collaboration_code_metrics.add_argument('--team-id--in', type = str, help = "Fetch metrics for this Team ID")
