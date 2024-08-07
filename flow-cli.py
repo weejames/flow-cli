@@ -20,12 +20,23 @@ def main():
     # Subcommand for collaboration_pullrequest_metrics API & filters
     parser_collaboration_pullrequest_metrics = subparsers.add_parser('collaboration', help='Interact with Collaboration Metrics API')
     parser_collaboration_pullrequest_metrics.add_argument('--date-range', type = str, help = "Filter response by date range - pattern: [YYYY-MM-DD:YYYY-MM-DD]", required = True)
-    parser_collaboration_pullrequest_metrics.add_argument('--team-id', type = str, help = "Fetch metrics for this Team ID")
-    parser_collaboration_pullrequest_metrics.add_argument('--include-nested-teams', type = str, default = "true", help = "Include nested teams in response.")
+    parser_collaboration_pullrequest_metrics.add_argument('--apex-user-id', type=str, help="Fetch metrics for apex_user_id")
+    parser_collaboration_pullrequest_metrics.add_argument('--apex-user-id--in', type=str, help="Fetch metrics for apex_user_id__in")
+    parser_collaboration_pullrequest_metrics.add_argument('--team-id', type=str, help="Fetch metrics for team_id")
+    parser_collaboration_pullrequest_metrics.add_argument('--team-id--in', type=str, help="Fetch metrics for team_id__in")
+    parser_collaboration_pullrequest_metrics.add_argument('--repo-id', type=str, help="Fetch metrics for repo_id")
+    parser_collaboration_pullrequest_metrics.add_argument('--repo-id--in', type=str, help="Fetch metrics for repo_id__in")
+    parser_collaboration_pullrequest_metrics.add_argument('--repo-id-not--in', type=str, help="Fetch metrics for repo_id_not__in")
+    parser_collaboration_pullrequest_metrics.add_argument('--repo-tag-id', type=str, help="Fetch metrics for repo_tag_id")
+    parser_collaboration_pullrequest_metrics.add_argument('--repo-tag-id--in', type=str, help="Fetch metrics for repo_tag_id__in")
+    parser_collaboration_pullrequest_metrics.add_argument('--repo-name', type=str, help="Fetch metrics for repo_name")
+    parser_collaboration_pullrequest_metrics.add_argument('--include-nested-teams', type=str, help="Fetch metrics for include_nested_teams", default="true")
+    parser_collaboration_pullrequest_metrics.add_argument('--include-weekly-data', type=str, help="Fetch metrics for include_weekly_data")
+    parser_collaboration_pullrequest_metrics.add_argument('--fields', type=str, help="Fetch metrics for fields")
+    parser_collaboration_pullrequest_metrics.add_argument('--metrics', type=str, help="Fetch metrics for metrics")
 
     # Subcommand for customer_metrics_code_fundamentals API & filters
     parser_collaboration_code_metrics = subparsers.add_parser('code', help='Interact with Code Fundamentals API')
-    parser_collaboration_code_metrics.add_argument('--start-date', type = str, help = "Filter response by date range")
     parser_collaboration_code_metrics.add_argument('--start-date', type = str, help = "Filter response by date range - pattern YYYY-MM-DD", required="true")
     parser_collaboration_code_metrics.add_argument('--end-date', type = str, help = "Filter response by date range")
     parser_collaboration_code_metrics.add_argument('--team-id', type = str, help = "Fetch metrics for this Team ID")
@@ -69,8 +80,20 @@ def main():
             pr_metrics = collaboration_pullrequest_metrics.request(
                 api_key,
                 date_range = args.date_range,
+                apex_user_id = args.apex_user_id,
+                apex_user_id__in = args.apex_user_id__in,
                 team_id = args.team_id,
-                include_nested_teams = args.include_nested_teams
+                team_id__in = args.team_id__in,
+                repo_id = args.repo_id,
+                repo_id__in = args.repo_id__in,
+                repo_id_not__in = args.repo_id_not__in,
+                repo_tag_id = args.repo_tag_id,
+                repo_tag_id__in = args.repo_tag_id__in,
+                repo_name = args.repo_name,
+                include_nested_teams = args.include_nested_teams,
+                include_weekly_data = args.include_weekly_data,
+                fields = args.fields,
+                metrics = args.metrics
             )
 
             print(json.dumps(pr_metrics, indent = 4))
