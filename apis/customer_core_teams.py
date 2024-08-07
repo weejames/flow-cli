@@ -2,15 +2,17 @@ import requests
 
 api_endpoint = "https://flow.pluralsight.com/v3/customer/core/teams/"
 
-def request(api_key, parentId, parentIsNull):
+def request(api_key, parent, parent__isnull):
     headers = {
         "Authorization": f"Bearer {api_key}"
     }
 
-    query_params = {
-        "parent__isnull": parentIsNull,
-        "parent": parentId,
-    }
+    query_params = {}
+
+    if parent__isnull is not None:
+        query_params["parent__isnull"] = parent__isnull
+    if parent is not None:
+        query_params["parent"] = parent
 
     api_response = requests.get(api_endpoint, headers = headers, params = query_params)
 

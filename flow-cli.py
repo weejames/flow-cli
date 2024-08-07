@@ -15,7 +15,7 @@ def main():
     # Subcommand for customer_core_teams API & filters
     parser_customer_core_teams = subparsers.add_parser('teams', help='Interact with Teams API')
     parser_customer_core_teams.add_argument('--parent', type = str, help = "Filter response by Parent Team ID")
-    parser_customer_core_teams.add_argument('--parent-isnull', type = str, default = "false", help = "Only fetch teams with a null Parent Team ID")
+    parser_customer_core_teams.add_argument('--parent--isnull', type = str, default = "false", help = "Only fetch teams with a null Parent Team ID")
 
     # Subcommand for collaboration_pullrequest_metrics API & filters
     parser_collaboration_pullrequest_metrics = subparsers.add_parser('collaboration', help='Interact with Collaboration Metrics API')
@@ -60,7 +60,7 @@ def main():
             teams = customer_core_teams.request(
                 api_key,
                 args.parent,
-                args.parent_isnull
+                args.parent__isnull
             )
 
             print(json.dumps(teams, indent = 4))
