@@ -9,7 +9,6 @@ def main():
         description="CLI application to interact with Pluralsight Flow APIs"
     )
     parser.add_argument('--api-key', type = str, help = "Pluralsight Flow API Key for authentication")
-    parser.add_argument('--output-format', type = str, help = "Output format for data retrieved")
 
     subparsers = parser.add_subparsers(dest = 'command')
 
@@ -19,8 +18,8 @@ def main():
     parser_customer_core_teams.add_argument('--parent-isnull', type = str, default = "false", help = "Only fetch teams with a null Parent Team ID")
 
     # Subcommand for collaboration_pullrequest_metrics API & filters
-    parser_collaboration_pullrequest_metrics = subparsers.add_parser('prs', help='Interact with PR Metrics API')
-    parser_collaboration_pullrequest_metrics.add_argument('--date-range', type = str, help = "Filter response by date range")
+    parser_collaboration_pullrequest_metrics = subparsers.add_parser('collaboration', help='Interact with Collaboration Metrics API')
+    parser_collaboration_pullrequest_metrics.add_argument('--date-range', type = str, help = "Filter response by date range - pattern: [YYYY-MM-DD:YYYY-MM-DD]", required = True)
     parser_collaboration_pullrequest_metrics.add_argument('--team-id', type = str, help = "Fetch metrics for this Team ID")
     parser_collaboration_pullrequest_metrics.add_argument('--include-nested-teams', type = str, default = "true", help = "Include nested teams in response.")
 
@@ -56,7 +55,7 @@ def main():
             )
 
             print(json.dumps(teams, indent = 4))
-        case "prs":
+        case "collaboration":
             pr_metrics = collaboration_pullrequest_metrics.request(
                 api_key,
                 date_range = args.date_range,

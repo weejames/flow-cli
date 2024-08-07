@@ -25,4 +25,4 @@ def request(api_key, team_id, date_range, include_nested_teams):
     if (api_response.status_code == 200):
         return api_response.json()
     else:
-        raise RuntimeError("Request failed")
+        raise RuntimeError(api_response.text)
