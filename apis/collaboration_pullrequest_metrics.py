@@ -12,7 +12,10 @@ def request(api_key, date_range=None, apex_user_id=None, apex_user_id__in=None,
         "Authorization": f"Bearer {api_key}"
     }
 
-    query_params = {key: value for key, value in locals().items() if value is not None and key != "api_key"}
+    query_params = {
+        key: value for key,
+        value in locals().items() if value is not None and key != "api_key"
+    } 
 
     api_response = requests.get(
         api_endpoint,
