@@ -57,27 +57,46 @@ def main():
 
     subparser_dora = parser_dora.add_subparsers(dest="subcommand")
 
-    parser_dora_frequency_metrics = subparser_dora.add_parser('frequency', help='Interact with DORA Frequency API')
+    parser_dora_frequency_metrics = subparser_dora.add_parser('deployment-frequency', help='Interact with DORA Frequency API')
     parser_dora_frequency_metrics.add_argument('--date-range', type = str, help = "Filter response by date range")
     parser_dora_frequency_metrics.add_argument('--include-nested-teams', type = str, default = "true", help = "Include nested teams in response.")
     parser_dora_frequency_metrics.add_argument('--team-id', type = str, help = "Fetch metrics for this Team ID")
     parser_dora_frequency_metrics.add_argument('--resolution', type = str, default = "period", help = "Period.")
 
+    parser_dora_leadtime_metrics = subparser_dora.add_parser('change-leadtime', help='Interact with DORA Change Leadtime API')
+    parser_dora_leadtime_metrics.add_argument('--date-range', type = str, help = "Filter response by date range")
+    parser_dora_leadtime_metrics.add_argument('--include-nested-teams', type = str, default = "true", help = "Include nested teams in response.")
+    parser_dora_leadtime_metrics.add_argument('--team-id', type = str, help = "Fetch metrics for this Team ID")
+    parser_dora_leadtime_metrics.add_argument('--resolution', type = str, default = "period", help = "Period.")
+
+    parser_dora_changefailure_metrics = subparser_dora.add_parser('incident-change-failure-rate', help='Interact with DORA Incident Change Failure Rate API')
+    parser_dora_changefailure_metrics.add_argument('--date-range', type = str, help = "Filter response by date range")
+    parser_dora_changefailure_metrics.add_argument('--include-nested-teams', type = str, default = "true", help = "Include nested teams in response.")
+    parser_dora_changefailure_metrics.add_argument('--team-id', type = str, help = "Fetch metrics for this Team ID")
+    parser_dora_changefailure_metrics.add_argument('--resolution', type = str, default = "period", help = "Period.")
+
+    parser_dora_timetorestore_metrics = subparser_dora.add_parser('incident-time-to-restore', help='Interact with DORA Incident Time to Restore API')
+    parser_dora_timetorestore_metrics.add_argument('--date-range', type = str, help = "Filter response by date range")
+    parser_dora_timetorestore_metrics.add_argument('--include-nested-teams', type = str, default = "true", help = "Include nested teams in response.")
+    parser_dora_timetorestore_metrics.add_argument('--team-id', type = str, help = "Fetch metrics for this Team ID")
+    parser_dora_timetorestore_metrics.add_argument('--resolution', type = str, default = "period", help = "Period.")
+
     args = parser.parse_args()
 
     api_key = auth.get_api_key(args.api_key)
 
+    api_response = None
+
     match args.command:
         case "teams":
-            teams = customer_core_teams.request(
+            api_response = customer_core_teams.request(
                 api_key,
                 args.parent,
                 args.parent__isnull
             )
 
-            print(json.dumps(teams, indent = 4))
         case "collaboration":
-            pr_metrics = collaboration_pullrequest_metrics.request(
+            api_response = collaboration_pullrequest_metrics.request(
                 api_key,
                 date_range = args.date_range,
                 apex_user_id = args.apex_user_id,
@@ -96,9 +115,8 @@ def main():
                 metrics = args.metrics
             )
 
-            print(json.dumps(pr_metrics, indent = 4))
         case "code":
-            code_metrics = customer_metrics_code_fundamentals_period_metrics.request(
+            api_response = customer_metrics_code_fundamentals_period_metrics.request(
                 api_key,
                 start_date = args.start_date,
                 end_date = args.end_date,
@@ -116,12 +134,20 @@ def main():
                 repo_name = args.repo_name
             )
 
-            print(json.dumps(code_metrics, indent = 4))
         case "dora":
 
             match args.subcommand:
-                case "frequency":
-                    dora_frequency_metrics = dora_build_release.frequency(
+                case "deployment-frequency":
+                    api_response = dora_build_release.frequency(
+                        api_key,
+                        date_range = args.date_range,
+                        team_id = args.team_id,
+                        include_nested_teams = args.include_nested_teams,
+                        resolution = args.resolution
+                    )
+                
+                case "change-leadtime":
+                    api_response = dora_build_release.leadtime(
                         api_key,
                         date_range = args.date_range,
                         team_id = args.team_id,
@@ -129,7 +155,25 @@ def main():
                         resolution = args.resolution
                     )
 
-                    print(json.dumps(dora_frequency_metrics, indent = 4))
+                case "incident-change-failure-rate":
+                    api_response = dora_build_release.changefailure(
+                        api_key,
+                        date_range = args.date_range,
+                        team_id = args.team_id,
+                        include_nested_teams = args.include_nested_teams,
+                        resolution = args.resolution
+                    )
+                
+                case "incident-time-to-restore":
+                    api_response = dora_build_release.time_to_restore(
+                        api_key,
+                        date_range = args.date_range,
+                        team_id = args.team_id,
+                        include_nested_teams = args.include_nested_teams,
+                        resolution = args.resolution
+                    )
+
+    print(json.dumps(api_response, indent = 4))
 
 if __name__ == "__main__":
     main()
