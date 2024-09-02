@@ -14,6 +14,7 @@ def main():
 
     # Subcommand for customer_core_teams API & filters
     parser_customer_core_teams = subparsers.add_parser('teams', help='Interact with Teams API')
+    parser_customer_core_teams.add_argument('--id', type = str, help = "Filter response by Team ID")
     parser_customer_core_teams.add_argument('--parent', type = str, help = "Filter response by Parent Team ID")
     parser_customer_core_teams.add_argument('--parent--isnull', type = str, default = "false", help = "Only fetch teams with a null Parent Team ID")
 
@@ -91,6 +92,7 @@ def main():
         case "teams":
             api_response = customer_core_teams.request(
                 api_key,
+                args.id,
                 args.parent,
                 args.parent__isnull
             )
