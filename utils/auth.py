@@ -1,6 +1,6 @@
 import os
 
-def get_api_key(api_key):
+def get_api_key(api_key=None):
     if api_key:
         return api_key
     
