@@ -42,7 +42,7 @@ def frequency(api_key, team_id=None, date_range=None, include_nested_teams=None,
     if (api_response.status_code == 200):
         return api_response.json()
     else:
-        raise RuntimeError(api_response.text())
+        raise RuntimeError(api_response.text)
     
 def changefailure(api_key, team_id=None, date_range=None, include_nested_teams=None, resolution=None):
     headers = {
