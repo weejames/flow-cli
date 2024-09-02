@@ -2,7 +2,6 @@ import requests
 
 api_endpoint = "https://flow.pluralsight.com/v3/customer/core/teams/"
 
-def request(api_key, parent, parent__isnull):
 def request(api_key, id=None, parent=None, parent__isnull=None):
     headers = {
         "Authorization": f"Bearer {api_key}"
