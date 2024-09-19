@@ -36,6 +36,14 @@ python3 flow-cli.py [--api-key YOUR_API_KEY] <command> [options]
 
 ## Supported Commands / APIs
 
+I've only partially documented the available commands. I recommend using the help function to see what's available. Works on sub commands too.
+
+```bash
+python3 flow-cli.py --help
+
+python3 flow-cli.py teams --help
+```
+
 ### Teams API
 
 ```bash
